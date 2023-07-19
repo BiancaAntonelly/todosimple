@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.biancaantonelly.todosimple.models.Task;
 import com.biancaantonelly.todosimple.services.TaskService;
+import com.biancaantonelly.todosimple.services.UsuarioService;
 
 import jakarta.validation.Valid;
 
@@ -25,43 +26,45 @@ import jakarta.validation.Valid;
 @Validated
 public class TaskController {
 
-	@Autowired
-	private TaskService taskService;
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<Task> findById(@PathVariable Long id){
-		Task obj = this.taskService.findById(id);
-		return ResponseEntity.ok(obj);
-	}
-	
-	/*
-	@GetMapping("/usuario/{usuarioId}")
-	public ResponseEntity<List<Task>> findAllByUsuarioId(@PathVariable Long usuarioId) {
-	    this.usuarioService.findById(usuarioId);
-		List<Task> objs = this.taskService.findAllByUsuarioId(usuarioId);
-	    return ResponseEntity.ok().body(objs);
-	}
-	*/
+    @Autowired
+    private TaskService taskService;
 
-	
-	@PostMapping("")
-	public ResponseEntity<Void> create(@Valid @RequestBody Task obj){
-		this.taskService.create(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
-	}
-	
-	@PostMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody Task obj, @PathVariable Long id){
-		obj.setId(id);
-		this.taskService.update(obj);
-		return ResponseEntity.noContent().build();
-	}
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id){
-		this.taskService.delete(id);
-		return ResponseEntity.noContent().build();		
-	}
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> findById(@PathVariable Long id) {
+        Task obj = this.taskService.findById(id);
+        return ResponseEntity.ok(obj);
+    }
+
+    /*
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<Task>> findAllByUsuarioId(@PathVariable Long usuarioId) {
+        this.usuarioService.findById(usuarioId);
+        List<Task> objs = this.taskService.findAllByUsuarioId(usuarioId);
+        return ResponseEntity.ok().body(objs);
+    }
+    */
+
+    @PostMapping("")
+    public ResponseEntity<Void> create(@Valid @RequestBody Task obj) {
+        this.taskService.create(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Void> update(@Valid @RequestBody Task obj, @PathVariable Long id) {
+        obj.setId(id);
+        this.taskService.update(obj);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        this.taskService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
