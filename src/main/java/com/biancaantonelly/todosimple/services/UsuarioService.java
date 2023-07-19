@@ -11,6 +11,7 @@ import com.biancaantonelly.todosimple.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class UsuarioService {
 
     @Autowired
@@ -23,14 +24,14 @@ public class UsuarioService {
                 "Usuário não encontrado! Id: " + id + ", Tipo: " + Usuario.class.getName()));
     }
 
-    @Transactional
+    
     public Usuario create(Usuario obj) {
         obj.setId(null);
         obj = this.usuarioRepository.save(obj);
         return obj;
     }
 
-    @Transactional
+    
     public Usuario update(Usuario obj) {
         Usuario newObj = findById(obj.getId());
         newObj.setPassword(obj.getPassword());

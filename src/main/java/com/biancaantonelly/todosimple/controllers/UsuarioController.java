@@ -18,11 +18,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.biancaantonelly.todosimple.models.Usuario;
 import com.biancaantonelly.todosimple.services.UsuarioService;
 
-import jakarta.validation.Valid;
 
 //api restful
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/usuario")
 @Validated
 public class UsuarioController {
 	
@@ -38,21 +37,21 @@ public class UsuarioController {
 	
 	@PostMapping("")
 	@Validated(Usuario.CreateUsuario.class)
-	public ResponseEntity<Void> create(@Valid @RequestBody Usuario obj) {
-		this.usuarioService.create(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
+	public ResponseEntity<Void> create(@Validated @RequestBody Usuario obj) {
+	    this.usuarioService.create(obj);
+	    URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
+	            .path("/{id}").buildAndExpand(obj.getId()).toUri();
+	    return ResponseEntity.created(uri).build();
 	}
-	
-	
+
 	@PutMapping("{id}")
 	@Validated(Usuario.UpdateUsuario.class)
-	public ResponseEntity<Void> update(@Valid @RequestBody Usuario obj, @PathVariable Long id) {
-		obj.setId(id);
-		this.usuarioService.update(obj);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<Void> update(@Validated @RequestBody Usuario obj, @PathVariable Long id) {
+	    obj.setId(id);
+	    this.usuarioService.update(obj);
+	    return ResponseEntity.noContent().build();
 	}
+
 	
 	@DeleteMapping("{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){

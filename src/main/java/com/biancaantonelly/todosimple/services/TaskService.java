@@ -10,6 +10,7 @@ import com.biancaantonelly.todosimple.repositories.TaskRepository;
 import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class TaskService {
 	
 	@Autowired
@@ -27,7 +28,6 @@ public class TaskService {
 	    return task;
 	}
 
-	@Transactional
 	public Task create (Task obj) {
 		Usuario usuario = this.usuarioService.findById(obj.getUsuario().getId());  
 		obj.setId(null);
@@ -35,7 +35,7 @@ public class TaskService {
 		return this.taskRepository.save(obj);
 	}
 	
-	@Transactional
+	
 	public Task update (Task obj) {
 		Task newObj = findById(obj.getId());
 		newObj.setDescription(obj.getDescription());
