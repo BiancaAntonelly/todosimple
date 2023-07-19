@@ -21,8 +21,8 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = Usuario.TABLE_NAME)
 public class Usuario {
-	public interface CreateUser{}
-	public interface UpdateUser{}
+	public interface CreateUsuario{}
+	public interface UpdateUsuario{}
 	
 	
 	
@@ -35,16 +35,16 @@ public class Usuario {
 	private Long id;
 	
 	@Column(name = "username", length = 100, nullable = false, unique = true)
-	@NotNull(groups = CreateUser.class)
-	@NotEmpty (groups = CreateUser.class)
-	@Size(groups = CreateUser.class, min=2, max=100)
+	@NotNull(groups = CreateUsuario.class)
+	@NotEmpty (groups = CreateUsuario.class)
+	@Size(groups = CreateUsuario.class, min=2, max=100)
 	private String username;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name = "password", length = 60, nullable = false)
-	@NotNull (groups = {CreateUser.class, UpdateUser.class})
-	@NotEmpty (groups = {CreateUser.class, UpdateUser.class})
-	@Size(groups = {CreateUser.class, UpdateUser.class}, min=8, max=60)
+	@NotNull (groups = {CreateUsuario.class, UpdateUsuario.class})
+	@NotEmpty (groups = {CreateUsuario.class, UpdateUsuario.class})
+	@Size(groups = {CreateUsuario.class, UpdateUsuario.class}, min=8, max=60)
 	private String password;
 
 	
@@ -68,11 +68,11 @@ public class Usuario {
 		this.id = id;
 	}
 
-	public String getUsername() {
+	public String getUsuarioname() {
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsuarioname(String username) {
 		this.username = username;
 	}
 

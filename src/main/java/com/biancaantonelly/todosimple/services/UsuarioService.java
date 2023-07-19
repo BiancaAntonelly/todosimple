@@ -3,20 +3,19 @@ package com.biancaantonelly.todosimple.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.biancaantonelly.todosimple.models.Usuario;
-import com.biancaantonelly.todosimple.repositories.TaskRepository;
 import com.biancaantonelly.todosimple.repositories.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
 
+@Service
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private TaskRepository taskRepository;
     
     public Usuario findById(Long id) {
         Optional<Usuario> usuario = this.usuarioRepository.findById(id);
@@ -28,7 +27,6 @@ public class UsuarioService {
     public Usuario create(Usuario obj) {
         obj.setId(null);
         obj = this.usuarioRepository.save(obj);
-        this.taskRepository.saveAll(obj.getTasks());
         return obj;
     }
 
