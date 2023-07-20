@@ -28,6 +28,10 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@GetMapping("/index")
+    public String home() {
+        return "index"; // Retorna o nome da página HTML que você deseja exibir (por exemplo, "index.html")
+    }
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> finfById(@PathVariable Long id){
